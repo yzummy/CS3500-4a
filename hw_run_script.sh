@@ -20,7 +20,7 @@
 inputs=`ls sample_input --ignore-backups`
 
 for i in $inputs; do
-    ./parser < ./sample_input/$i \
+    ./lingzhang_parser < ./sample_input/$i \
 	     > ./actual_output/$i.out
 
     diff ./actual_output/$i.out ./expected_output/$i.out > \

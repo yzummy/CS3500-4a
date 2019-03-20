@@ -6,10 +6,11 @@
 #include "SymbolTableEntry.h"
 using namespace std;
 
+
 class SYMBOL_TABLE
 {
 private:
-  std::map<string, SYMBOL_TABLE_ENTRY> hashTable;
+  std::map<string, TYPE_INFO> hashTable;
 
 public:
   //Constructor
@@ -20,10 +21,10 @@ public:
   bool addEntry(SYMBOL_TABLE_ENTRY x)
   {
     // Make sure there isn't already an entry with the same name
-    map<string, SYMBOL_TABLE_ENTRY>::iterator itr;
+    map<string, TYPE_INFO>::iterator itr;
     if ((itr = hashTable.find(x.getName())) == hashTable.end())
     {
-      hashTable.insert(make_pair(x.getName(), x));
+      hashTable.insert(make_pair(x.getName(), x.getTypeInfo()));
       return(true);
     }
     else return(false);
@@ -32,12 +33,13 @@ public:
   // If a SYMBOL_TABLE_ENTRY with name theName is
   // found in this symbol table, then return true;
   // otherwise, return false.
-  bool findEntry(string theName)
+  TYPE_INFO findEntry(string theName)
   {
-    map<string, SYMBOL_TABLE_ENTRY>::iterator itr;
+    map<string, TYPE_INFO>::iterator itr;
+    TYPE_INFO defaultType = {NOT_APPLICABLE, NOT_APPLICABLE, NOT_APPLICABLE};
     if ((itr = hashTable.find(theName)) == hashTable.end())
-      return(false);
-    else return(true);
+      return(defaultType);
+    else return(itr->second);
   }
 
 };

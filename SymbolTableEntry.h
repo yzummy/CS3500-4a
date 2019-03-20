@@ -4,28 +4,50 @@
 #include <string>
 using namespace std;
 
-#define UNDEFINED  -1
+#define UNDEFINED       -1
+#define FUNCTION        0
+#define INT             1
+#define STR             2
+#define BOOL            3
+#define FLOAT           4
+#define LIST            5
+#define NULL_TYPE       6
+#define INT_OR_STR_OR_BOOL_OR_FLOAT 7
+#define LOGICAL         8
+#define ARITHMETIC      9
+#define NOT_APPLICABLE  -1
+
+
+typedef struct
+{
+    int type;
+    int numParams;
+    int returnType;
+} TYPE_INFO;
+
+
 
 class SYMBOL_TABLE_ENTRY
 {
 private:
   // Member variables
   string name;
-  int typeCode;
+  TYPE_INFO typeInfo;
 
 public:
   // Constructors
-  SYMBOL_TABLE_ENTRY( ) { name = ""; typeCode = UNDEFINED; }
+  TYPE_INFO defaultType = {NOT_APPLICABLE, NOT_APPLICABLE, NOT_APPLICABLE};
+  SYMBOL_TABLE_ENTRY( ) { name = ""; typeInfo = defaultType; }
 
-  SYMBOL_TABLE_ENTRY(const string theName, const int theType)
+  SYMBOL_TABLE_ENTRY(const string theName, const TYPE_INFO theTypeInfo)
   {
     name = theName;
-    typeCode = theType;
+    typeInfo = theTypeInfo;
   }
 
   // Accessors
   string getName() const { return name; }
-  int getTypeCode() const { return typeCode; }
+  TYPE_INFO getTypeInfo() const { return typeInfo; }
 };
 
 #endif  // SYMBOL_TABLE_ENTRY_H
